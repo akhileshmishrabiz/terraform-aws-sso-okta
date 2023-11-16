@@ -1,5 +1,6 @@
+# providers.tf
 provider "aws" {
-  region              = var.region
+  region = var.region
 }
 
 provider "okta" {

@@ -11,7 +11,7 @@ resource "okta_app_saml" "sso" {
   hide_web                = false
   honor_force_authn       = false
   implicit_assignment     = false
-  label                   = "aws-sso-test"
+  label                   = var.saml_app_label
   preconfigured_app       = "amazon_aws"
   response_signed         = false
   saml_version            = "2.0"
@@ -23,7 +23,7 @@ resource "okta_app_saml" "sso" {
 
 # Create aws IAM identity provider
 resource "aws_iam_saml_provider" "sso" {
-  name                   = "aws-sso-okta-test"
+  name                   = var.aws_iam_identity_provider
   saml_metadata_document = okta_app_saml.sso.metadata
 }
 
@@ -74,21 +74,21 @@ resource "okta_app_group_assignment" "sso" {
 
 # Creating okta user
 resource "okta_user" "sso" {
-  department                = "Cloud"
-  display_name              = "Akhilesh Mishra"
-  email                     = "primary email id "
-  employee_number           = "1234567"
-  first_name                = "Akhilesh"
-  last_name                 = "Mishra"
-  login                     = "login email"
-  second_email              = "secondary email id "
+  department      = "Cloud"
+  display_name    = "Akhilesh Mishra"
+  email           = "primary email id "
+  employee_number = "1234567"
+  first_name      = "Akhilesh"
+  last_name       = "Mishra"
+  login           = "login email"
+  second_email    = "secondary email id "
 }
 
 # Assigning user to the group
 resource "okta_group_memberships" "sso_user" {
   group_id = okta_group.sso.id
   users = [
-    okta_user.sso.id, 
+    okta_user.sso.id,
   ]
 }
 
@@ -96,31 +96,31 @@ resource "okta_group_memberships" "sso_user" {
 
 # OIDC nativ app for okta
 resource "okta_app_oauth" "sso_cli" {
-  accessibility_self_service       = false
-  app_links_json                   = "{\"oidc_client_link\":true}"
-  app_settings_json                = "{}"
-  auto_key_rotation                = true
-  auto_submit_toolbar              = false
-  consent_method                   = "REQUIRED"
-  enduser_note                     = null
-  grant_types                      = ["authorization_code", "urn:ietf:params:oauth:grant-type:device_code", "urn:ietf:params:oauth:grant-type:token-exchange"]
-  hide_ios                         = true
-  hide_web                         = true
-  implicit_assignment              = false
-  issuer_mode                      = "DYNAMIC"
-  label                            = "sso-aws-cli"
-  login_mode                       = "DISABLED"
-  login_scopes                     = []
-  pkce_required                    = true
-  profile                          = null
-  response_types                   = ["code"]
-  status                           = "ACTIVE"
-  token_endpoint_auth_method       = "none"
-  tos_uri                          = null
-  type                             = "native"
-  user_name_template               = "$${source.login}"
-  user_name_template_type          = "BUILT_IN"
-  wildcard_redirect                = "DISABLED"
+  accessibility_self_service = false
+  app_links_json             = "{\"oidc_client_link\":true}"
+  app_settings_json          = "{}"
+  auto_key_rotation          = true
+  auto_submit_toolbar        = false
+  consent_method             = "REQUIRED"
+  enduser_note               = null
+  grant_types                = ["authorization_code", "urn:ietf:params:oauth:grant-type:device_code", "urn:ietf:params:oauth:grant-type:token-exchange"]
+  hide_ios                   = true
+  hide_web                   = true
+  implicit_assignment        = false
+  issuer_mode                = "DYNAMIC"
+  label                      = var.oidc_app_label
+  login_mode                 = "DISABLED"
+  login_scopes               = []
+  pkce_required              = true
+  profile                    = null
+  response_types             = ["code"]
+  status                     = "ACTIVE"
+  token_endpoint_auth_method = "none"
+  tos_uri                    = null
+  type                       = "native"
+  user_name_template         = "$${source.login}"
+  user_name_template_type    = "BUILT_IN"
+  wildcard_redirect          = "DISABLED"
 }
 
 # Setting scope for okta native oidc app

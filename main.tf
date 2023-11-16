@@ -12,8 +12,8 @@ import {
 }
 
 import {
-to = okta_app_oauth_api_scope.sso_cli
-id = "0oa60ylb4nJRb97x30x7"
+  to = okta_app_oauth_api_scope.sso_cli
+  id = "0oa60ylb4nJRb97x30x7"
 
 }
 import {
