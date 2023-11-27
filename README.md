@@ -1,3 +1,29 @@
+# AWS single sign-on with Okta using Terraform
+
+I am using Terraform to configure AWS Single sign-on using the AWS IAM identity provider and Okta Saml app.
+Also, I will be Setting up AWS CLI with the Okta app using the OIDC native app for Okta.
+Read my medium blog for a complete, step-by-step guide
+
+https://medium.com/kpmg-uk-engineering/configuring-single-sign-on-for-aws-account-using-iam-identity-provider-and-okta-c996b1486bfd
+https://medium.com/kpmg-uk-engineering/aws-single-sign-on-with-okta-using-terraform-e86da970ca5b
+
+When you integrate your AWS instance with Okta, users can authenticate to one or more AWS accounts with specific IAM roles using single sign-on with SAML.
+You can import roles from one or more AWS accounts into Okta, assign them to users, and set the duration of the authenticated sessions.
+
+1. Configure Okta as the AWS account identity provider.
+  - Creating Okta app for AWS SSO
+  - Creating AWS IAM identity provider
+2. Configure the SAML app
+3. Create an AWS IAM role and add Okta as a trusted source for that role
+4. Attach the IAM policy to the IAM role
+5. Create a service account and generate the keys
+6. Attach permissions to list IAM roles to the service user account
+7. Create an Okta group and deploy the Terraform
+8. Enabling API Integration to provisioning the Okta app
+9. Create an Okta group assignment to the SAML app
+10. Create an Okta user and add the user to the Okta group
+    
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
