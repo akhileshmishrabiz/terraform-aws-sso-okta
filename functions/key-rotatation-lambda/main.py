@@ -62,5 +62,6 @@ def handler(event, context):
             to_emails=TO_EMAILS,
         )
 
+
 if __name__ == "__main__":
     handler({}, {})
